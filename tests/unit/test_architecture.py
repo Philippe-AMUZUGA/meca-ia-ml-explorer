@@ -9,6 +9,7 @@ sans import circulaire ; le format ruff et la charte des tirets sont tenus.
 from __future__ import annotations
 
 import ast
+import hashlib
 import importlib.util
 import os
 import re
@@ -526,16 +527,20 @@ def test_format_ruff() -> None:
     assert sortie.returncode == 0, sortie.stdout + sortie.stderr
 
 
-# Traces de fabrication : écrites par morceaux pour que ce fichier ne les contienne pas lui-même.
-TRACES_DE_FABRICATION = (
-    "_BUILD" + "_",
-    "_mySubA" + "gent",
-    "jal" + "on",
-    "l'application " + "C2",
-    "pilo" + "tage",
-    "chan" + "tier",
-    "dialec" + "tique",
+# Vocabulaire de travail à ne jamais publier : seules les empreintes SHA-256 (minuscules) des mots
+# et des couples de mots figurent ici, de sorte que ce fichier ne contient aucun de ces termes.
+EMPREINTES_INTERDITES = frozenset(
+    {
+        "de6c07021bc5675e69b084edbe39e216e8c4620469bb61b72928dc2f880e6914",
+        "90778b5fd92dd91f7a3fd1c963f897d96775ae70b26cb1bd07be8e62941776b3",
+        "491a1881706df18d9f7564dd43723b587f456345e942373be0aeb560e5ac86e7",
+        "7a559362218afa516be45651f8d2e260ffebcdba26f68d7b9c11e6996e968bc3",
+        "a40c53c45255a06ec2445e79177b8e868df87016790076fcae0dadf91a5e8e0b",
+        "db135567d58fcccf8c319f00494ed17c38fa001c326e92c51b8d6db195a2322b",
+        "8d7f47067524a56365a620c0e5ff17b1124d621dffb764b0ced6589564fd4beb",
+    }
 )
+RE_MOT = re.compile(r"\w+")
 DOSSIERS_IGNORES = {".git", "__pycache__", ".pytest_cache", ".ruff_cache", "build", "dist"}
 
 
@@ -549,19 +554,60 @@ def _fichiers_texte(racine: Path):
             continue  # binaire : image, classeur
 
 
+def _empreinte(texte: str) -> str:
+    return hashlib.sha256(texte.encode("utf-8")).hexdigest()
+
+
+def _candidats(mots: list[str]) -> set[str]:
+    """Formes à comparer : mot, singulier, morceaux d'un mot composé (coupé au trait bas), couple de mots."""
+    formes: set[str] = set()
+    for i, mot in enumerate(mots):
+        formes.add(mot)
+        if mot.endswith("s"):
+            formes.add(mot[:-1])
+        for k, lettre in enumerate(mot):
+            if lettre == "_" and k > 0:
+                formes.update({mot[:k], mot[: k + 1]})
+        for segment in filter(None, mot.split("_")):
+            formes.update({segment, segment.removesuffix("s")})
+        if i + 1 < len(mots):
+            formes.add(f"{mot} {mots[i + 1]}")
+    return formes
+
+
+def termes_interdits(texte: str, empreintes: frozenset[str] = EMPREINTES_INTERDITES) -> list[str]:
+    """Empreintes des termes interdits présents dans le texte (aucun terme n'est jamais écrit en clair)."""
+    formes = _candidats(RE_MOT.findall(texte.lower()))
+    return sorted(e for e in empreintes if any(_empreinte(f) == e for f in formes))
+
+
 def test_aucune_trace_de_fabrication_dans_le_depot() -> None:
     trouvees = [
-        f"{chemin.relative_to(RACINE)} : {trace}"
+        f"{chemin.relative_to(RACINE)} : terme interdit d'empreinte {e[:12]}"
         for chemin, texte in _fichiers_texte(RACINE)
-        for trace in TRACES_DE_FABRICATION
-        if trace.lower() in texte.lower()
+        for e in termes_interdits(texte)
     ]
     assert not trouvees, "\n".join(trouvees)
 
 
-def test_anti_trace_le_parcours_detecte(tmp_path: Path) -> None:
-    (tmp_path / "a.md").write_text("Régénéré à chaque " + TRACES_DE_FABRICATION[2] + "\n", encoding="utf-8")
+@pytest.mark.parametrize(
+    ("texte", "attendu"),
+    [
+        ("Régénéré à chaque exemple.", True),
+        ("Deux exemples suffisent.", True),
+        ("dossier_exemple_01 et suite", True),
+        ("exemplaire unique", False),
+        ("aucun terme à signaler", False),
+    ],
+    ids=["mot", "pluriel", "mot_compose", "mot_voisin", "absent"],
+)
+def test_anti_trace_le_controle_detecte(texte: str, attendu: bool) -> None:
+    """Le contrôle se démontre sur un mot neutre : son empreinte remplace celle des termes interdits."""
+    empreintes = frozenset({_empreinte("exemple")})
+    assert bool(termes_interdits(texte, empreintes)) is attendu
+
+
+def test_anti_trace_le_parcours_ignore_les_binaires(tmp_path: Path) -> None:
+    (tmp_path / "a.md").write_text("texte", encoding="utf-8")
     (tmp_path / "b.bin").write_bytes(b"\xff\xfe\x00")
-    textes = dict(_fichiers_texte(tmp_path))
-    assert list(textes) == [tmp_path / "a.md"]
-    assert any(t.lower() in textes[tmp_path / "a.md"].lower() for t in TRACES_DE_FABRICATION)
+    assert list(dict(_fichiers_texte(tmp_path))) == [tmp_path / "a.md"]

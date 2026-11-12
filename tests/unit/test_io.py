@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import shutil
 import zipfile
 from collections.abc import Callable
@@ -369,7 +370,7 @@ def classeur_a_formules(tmp_path: Path, avec_cache: bool) -> Path:
 
     def valeurs_en_cache(nom: str, contenu: bytes) -> bytes:
         if nom == "xl/worksheets/sheet1.xml":
-            return contenu.replace(b"<v></v>", b"<v>99</v>")
+            return re.sub(rb"<v\s*/>|<v></v>", b"<v>99</v>", contenu)
         return contenu
 
     return reecrire_zip(chemin, tmp_path / "f_cache.xlsx", valeurs_en_cache)

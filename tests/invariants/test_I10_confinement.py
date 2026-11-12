@@ -11,6 +11,7 @@ from __future__ import annotations
 import builtins
 import io as bibliotheque_io
 import pickle
+import re
 import shutil
 import socket
 import tempfile
@@ -207,7 +208,8 @@ def test_formules_lues_en_valeurs_jamais_evaluees(tmp_path: Path) -> None:
         for info in lu.infolist():
             contenu = lu.read(info.filename)
             if info.filename == "xl/worksheets/sheet1.xml":
-                contenu = contenu.replace(b"<v></v>", b"<v>99</v>")
+                # openpyxl écrit la valeur vide `<v></v>` avec lxml et `<v />` sans lui.
+                contenu = re.sub(rb"<v\s*/>|<v></v>", b"<v>99</v>", contenu)
             ecrit.writestr(info.filename, contenu)
     r = charger(tmp_path / "cache.xlsx")
     assert r.formules == 3 and r.formules_sans_valeur == 0
