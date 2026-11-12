@@ -7,6 +7,7 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et les n
 ### Corrigé
 
 - Intégration continue : deux tests de lecture des formules d'un classeur supposaient que openpyxl écrit une valeur vide sous la forme `<v></v>`, ce qui n'est vrai qu'avec lxml ; ils acceptent aussi `<v />`, forme écrite sans lxml, et la suite est verte sur une installation limitée à `requirements-dev.txt`.
+- Intégration continue : l'étape des tests écrit sa sortie dans un fichier et recopie les tests en échec dans l'annotation de l'exécution, lisible sans ouvrir de session GitHub.
 - Le test qui écarte du dépôt les termes à ne pas publier compare désormais des empreintes SHA-256 : le fichier ne contient plus aucun de ces termes.
 
 ## [1.1.0] : 2026-11-10
