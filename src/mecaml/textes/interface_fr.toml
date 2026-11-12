@@ -1,0 +1,384 @@
+# Textes de l'interface, par clés ; {nom} est rempli à l'affichage.
+
+[app]
+nom = "MécaML Explorer"
+titre = "MécaML Explorer"
+
+[rail]
+accueil = "Accueil"
+s1 = "1. Données"
+s2 = "2. Audit"
+s3 = "3. Objectif"
+s4 = "4. Découpage"
+s5 = "5. Prétraitement"
+s6 = "6. Modèles"
+s7 = "7. Diagnostic et décision"
+s8 = "8. Test"
+s9 = "9. Export"
+
+[commun]
+fermer = "Fermer"
+oui = "oui"
+non = "non"
+indefini = "n.d."
+renvoi = "chapitre {chapitre}, section {section} ({id})"
+renvoi_sans_fiche = "chapitre {chapitre}, section {section}"
+voir_livre = "Livre Méca-IA, {renvoi}"
+
+[pied]
+pret = "Prêt"
+annuler = "Annuler"
+annule = "Calcul annulé"
+credit = "MécaML Explorer {version} • licence MIT"
+
+[niveau]
+bloquant = "Bloquant"
+alerte = "Alerte"
+info = "Information"
+
+[role]
+numerique = "Variable numérique"
+categorielle = "Variable catégorielle"
+cible = "Cible"
+date = "Repère de temps"
+groupe = "Unité suivie"
+identifiant = "Identifiant"
+ignoree = "Écartée"
+
+[famille]
+nombre = "nombre"
+texte = "texte"
+date = "date"
+booleen = "booléen"
+vide = "vide"
+
+[probleme]
+regression = "Régression"
+classification = "Classification"
+sans_cible = "Sans cible"
+
+[cout]
+leger = "léger"
+moyen = "moyen"
+lourd = "lourd"
+
+[constats]
+niveau = "Niveau"
+message = "Constat"
+statut = "Statut"
+livre = "Livre Méca-IA"
+acquittee = "acquittée"
+aucun = "Aucun constat."
+choisir = "Choisir un constat."
+action = "À faire :"
+
+[choix]
+technique = "Technique"
+colonnes = "Colonnes (aucune : celles du rôle)"
+colonnes_court = "Colonnes"
+parametres = "Réglages"
+note = "Remarque"
+ajouter = "Ajouter"
+regler = "Régler"
+retirer = "Retirer"
+monter = "Monter"
+descendre = "Descendre"
+valider = "Valider"
+annuler = "Annuler"
+avance = "Avancé"
+defauts = "Défauts"
+plage = "{bornes} ; défaut {valeur}"
+cout = "coût : {cout}"
+
+[ecran.accueil]
+version = "Version {version}"
+exemples = "Jeux d'exemple :"
+sans_exemple = "Aucun jeu d'exemple : choisir un fichier à l'étape 1."
+principe = "Parcours guidé d'un projet d'apprentissage sur données tabulaires, avec renvois au livre Méca-IA. Coder soi-même ses modèles donne la maîtrise de bout en bout, la personnalisation et la compréhension."
+confiance = "Aucune donnée ne quitte le poste : pas de réseau, écriture dans le seul dossier d'export."
+
+[ecran.accueil.depart]
+titre = "Commencer"
+choisir = "Choisir un jeu de données"
+
+[ecran.s1]
+parcourir = "Parcourir"
+parcourir_titre = "Choisir le jeu de données"
+parcourir_test_titre = "Choisir le fichier de test"
+type_donnees = "Classeurs et fichiers texte"
+charger = "Charger"
+lecture = "Lecture des données"
+vide = "Aucun fichier chargé."
+aucun_fichier = "Choisir d'abord un fichier .xlsx ou .csv."
+challenge = "Mode challenge : garder la feuille de test scellée"
+bornes = "Bornes : {lignes} lignes, {colonnes} colonnes."
+forme = "{nom} : {lignes} lignes, {colonnes} colonnes."
+technique = "Mémoire : {octets} octets ; lecture en {duree} s."
+empreinte = "Empreinte : {sha}..."
+test_lu = "Jeu de test à part : {lignes} lignes."
+lu = "Fichier lu : {nom}."
+auditer = "Auditer"
+
+[ecran.s1.fichier]
+titre = "Fichier"
+chemin = "Fichier"
+feuille = "Feuille"
+test = "Fichier de test (facultatif)"
+
+[ecran.s1.apercu]
+titre = "Aperçu"
+
+[ecran.s2]
+audit = "Audit des données"
+acquitter_choix = "Acquitter la sélection"
+acquitter_tout = "Tout acquitter"
+continuer = "Définir l'objectif"
+replie = "{n} information(s) hors bornes, repliée(s) dans le profil"
+
+[ecran.s2.profil]
+titre = "Profil des colonnes"
+
+[ecran.s2.col]
+nom = "Colonne"
+famille = "Type"
+role = "Rôle proposé"
+manquants = "Manquants"
+distincts = "Distincts"
+minimum = "Min"
+maximum = "Max"
+hors = "Hors bornes"
+raison = "Pourquoi ce rôle"
+
+[ecran.s2.constats]
+titre = "Constats"
+
+[ecran.s3]
+audit = "Audit avec la cible"
+proposition = "Proposer les rôles"
+probleme = "Problème"
+cible = "Cible"
+structure = "Structure des lignes"
+metrique = "Métrique"
+positive = "Classe positive"
+validation = "Validation croisée"
+validation_deduite = "déduite de la structure"
+part_test = "Part du test"
+plis = "Nombre de plis"
+graine = "Graine"
+cout_fp = "coût d'un faux positif"
+cout_fn = "coût d'un faux négatif"
+role_choisi = "Rôle des colonnes choisies"
+appliquer_role = "Appliquer"
+reproposer = "Proposer pour cette cible"
+fixer = "Fixer l'objectif"
+continuer = "Découper"
+spec_invalide = "Objectif incomplet : vérifier cible, structure et nombres."
+
+[ecran.s3.objectif]
+titre = "Objectif"
+
+[ecran.s3.roles]
+titre = "Rôle de chaque colonne"
+
+[ecran.s3.constats]
+titre = "Constats avec cette cible"
+
+[ecran.s4]
+structure = "Structure"
+methode = "Méthode de découpage"
+sceller = "Sceller le test"
+continuer_sans = "Prétraiter"
+continuer = "Prétraiter"
+scelle = "Mise sous scellé du test"
+deduit = "Méthode déduite de la structure : unités, dates, classes ou hasard."
+challenge = "Jeu de test fourni à part, scellé jusqu'à l'étape 8."
+sans_cible = "Sans cible : pas de jeu de test, toutes les lignes servent."
+pas_encore = "Test pas encore scellé."
+sans_test = "Aucun jeu de test."
+effectifs = "Apprentissage : {app} lignes ; test : {test} lignes."
+part = "Part obtenue en test : {part} %."
+methode_prise = "Méthode : {methode}."
+scellee = "Test scellé : aucune ligne lue avant l'étape 8."
+empreinte = "Empreinte du test : {sha}..."
+
+[ecran.s4.decoupage]
+titre = "Découpage"
+
+[ecran.s4.resultat]
+titre = "Jeu de test scellé"
+
+[ecran.s5]
+proposer = "Proposer"
+proposition = "Proposition de prétraitement"
+verifier = "Contrôler"
+controle = "Contrôle du prétraitement"
+appliquer = "Appliquer"
+application = "Prétraitement"
+aucun_avis = "Aucun avertissement."
+cible_connue = "La cible du pas précédent est connue au moment de la prévision"
+cible_connue_limite = "Le contrôle ne repère qu'un compte à rebours régulier : cocher engage le projet."
+
+[ecran.s5.chaine]
+titre = "Chaîne de prétraitement"
+
+[ecran.s5.controles]
+titre = "Contrôles"
+
+[ecran.s6]
+proposer = "Proposer"
+entrainer = "Entraîner et comparer"
+entrainement = "Validation croisée des modèles"
+continuer = "Diagnostiquer"
+reference = "La référence naïve figure toujours : un score se lit face à elle."
+pas_encore = "Aucun modèle entraîné."
+metrique = "Métrique : {metrique}."
+validation = "Validation : {validation}, {plis} plis."
+positive = "Classe positive : {classe}."
+sans_cible = "{n} lignes sans cible retirées de l'apprentissage."
+echec = "échec : {motif}"
+sans_export = "pas de script exportable"
+
+[ecran.s6.modeles]
+titre = "Modèles à comparer"
+
+[ecran.s6.resultat]
+titre = "Comparaison"
+
+[ecran.s6.col]
+modele = "Modèle"
+moyenne = "Moyenne"
+ecart = "Écart type"
+gain = "Gain sur la référence"
+plis = "Plis valides"
+duree = "Durée (s)"
+statut = "Statut"
+
+[ecran.s6.recherche]
+titre = "Recherche de réglages (facultative)"
+modele = "Modèle"
+champ_mode = "Mode"
+essais = "Essais (mode aléatoire)"
+chercher = "Chercher"
+travail = "Recherche de réglages"
+pas_encore = "Aucune recherche : chaque réglage de la grille est validé sur les mêmes plis."
+optimiste = "Meilleur réglage choisi sur ces plis : son score ({metrique}) est optimiste. Test scellé."
+utiliser = "Utiliser le meilleur"
+reporte = "Meilleur réglage reporté : relancer l'entraînement pour le comparer."
+defauts = "réglages par défaut"
+nombre_invalide = "Le nombre d'essais doit être un entier."
+
+[ecran.s6.recherche.mode]
+grille = "Grille complète"
+aleatoire = "Tirage aléatoire"
+
+[ecran.s6.recherche.col]
+parametres = "Réglage"
+moyenne = "Moyenne"
+ecart = "Écart type"
+
+[ecran.s6.statut]
+reference = "référence naïve"
+ajuste = "ajusté"
+
+[ecran.s7]
+champ_modele = "Modèle examiné"
+seuil = "Seuil"
+seuil_cout = "Seuil de coût minimal"
+appliquer_seuil = "Appliquer"
+nombre_invalide = "Nombre invalide : chiffres, point ou virgule."
+pas_de_seuil = "Le seuil de coût se propose en classification à deux classes."
+diagnostic = "Diagnostic hors pli"
+justification = "Justification"
+retention = "Décision"
+retenir = "Retenir ce modèle"
+
+[ecran.s7.modele]
+titre = "Modèle"
+
+[ecran.s7.decision]
+titre = "Décision"
+
+[ecran.s7.onglet]
+diagnostic = "Diagnostic"
+seuil = "Seuil et coût"
+lecture = "Lecture du modèle"
+importances = "Importances"
+courbe = "Courbe d'apprentissage"
+garde = "Mises en garde"
+
+[ecran.s7.calculer]
+lecture = "Lire le modèle"
+importances = "Calculer les importances"
+courbe = "Calculer la courbe"
+
+[ecran.s7.vue]
+regression = "Valeurs vraies et prédites, résidus"
+confusion = "Matrice de confusion"
+roc_pr = "Courbes ROC et précision rappel"
+seuil = "Précision, rappel et coût selon le seuil"
+resume = "Chiffres de lecture"
+coefficients = "Coefficients"
+impurete = "Importances par impureté"
+arbre = "Règles de l'arbre"
+importances = "Importance par permutation"
+courbe = "Score selon le nombre de lignes d'apprentissage"
+composantes = "Variance des composantes"
+poids = "Poids des variables"
+plan = "Lignes dans le plan des deux premières composantes"
+profils = "Profil moyen de chaque groupe"
+effectifs = "Effectif de chaque groupe"
+anomalies = "Scores d'anomalie"
+anormales = "Lignes les plus anormales"
+
+[ecran.s8]
+ouvrir = "Ouvrir le test (une seule fois)"
+confirmation = "Le test s'ouvre une seule fois, avec la décision de l'étape 7. Continuer ?"
+test = "Évaluation sur le test"
+exporter = "Exporter"
+sans_objet = "Sans cible, pas de jeu de test : passer à l'export."
+avant = "Test scellé ({test} lignes) ; {modele} sera évalué à l'ouverture. Ouvertures : {ouvertures}."
+ouvert = "Test ouvert. Ouvertures : {ouvertures}."
+optimiste = "Score de test optimiste : ce test avait déjà été ouvert."
+scores = "{metrique} : validation {validation}, test {test}, sur {lignes} lignes."
+sans_cible = "{n} lignes de test sans cible écartées."
+
+[ecran.s8.scelle]
+titre = "Jeu de test"
+
+[ecran.s8.resultat]
+titre = "Résultat sur le test"
+
+[ecran.s8.vue]
+scores = "Scores de test"
+
+[ecran.s9]
+champ_dossier = "Dossier de sortie"
+dossier_titre = "Choisir le dossier de sortie"
+aucun_dossier = "Choisir d'abord le dossier de sortie."
+exporter = "Exporter"
+export = "Export du rapport et du modèle"
+pas_encore = "Rien n'a encore été exporté."
+fait = "Fichiers écrits dans {dossier}."
+note = "Le modèle sérialisé contient des lignes du jeu : ne le partager qu'avec les données. L'application ne le recharge jamais."
+ouvrir_dossier = "Ouvrir le dossier"
+ouvrir_rapport = "Ouvrir le rapport"
+nouveau = "Nouveau projet"
+nouveau_projet = "Nouveau projet"
+
+[ecran.s9.dossier]
+titre = "Dossier et fichiers"
+
+[ecran.s9.format]
+html = "Rapport lisible ({nom})"
+xlsx = "Classeur des chiffres ({nom})"
+joblib = "Modèle ajusté ({nom})"
+script = "Script Python équivalent ({nom})"
+projet = "Projet rejouable ({nom})"
+
+[ecran.s9.resultat]
+titre = "Fichiers écrits"
+
+[ecran.s9.col]
+format = "Format"
+fichier = "Fichier"
+empreinte = "Empreinte SHA-256"

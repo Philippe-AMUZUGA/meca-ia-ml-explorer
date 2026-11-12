@@ -1,0 +1,12 @@
+# Fins de ligne fixées pour tous les environnements : LF dans le dépôt et dans l'arbre de travail.
+* text=auto eol=lf
+
+# Fichiers binaires : aucune conversion.
+*.xlsx binary
+*.xls binary
+*.pdf binary
+*.png binary
+*.joblib binary
+
+# Scripts Windows : fins de ligne CRLF (cmd lit mal les étiquettes et les blocs en LF).
+*.bat text eol=crlf

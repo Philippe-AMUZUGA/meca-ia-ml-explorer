@@ -1,0 +1,254 @@
+{
+  "format": 1,
+  "application": {
+    "nom": "MécaML Explorer",
+    "version": "1.0.0"
+  },
+  "donnees": {
+    "fichier": "MecaIA-Traitement_Acier.xlsx",
+    "feuille": "Sheet1",
+    "fichier_test": null,
+    "feuille_test": null,
+    "sha256": "4d38f19eda82408f1d9d8b540e02d7d4d8ed77c9dfd00b77282633064c1f13e7"
+  },
+  "projet": {
+    "probleme": "regression",
+    "cible": "resistance_traction_MPa",
+    "roles": [
+      [
+        "resistance_traction_MPa",
+        "cible"
+      ],
+      [
+        "taux_chrome_pourcent",
+        "numerique"
+      ],
+      [
+        "temperature_traitement_thermique_C",
+        "numerique"
+      ],
+      [
+        "temps_trempe_min",
+        "numerique"
+      ],
+      [
+        "teneur_carbone_pourcent",
+        "numerique"
+      ],
+      [
+        "type_alliage",
+        "categorielle"
+      ]
+    ],
+    "metrique": "rmse",
+    "structure": "independante",
+    "part_test": 0.2,
+    "n_plis": 5,
+    "graine": 42,
+    "pretraitement": [
+      {
+        "id": "encodage.one_hot",
+        "parametres": {},
+        "colonnes": [
+          "type_alliage"
+        ]
+      },
+      {
+        "id": "transformation.standard",
+        "parametres": {},
+        "colonnes": [
+          "taux_chrome_pourcent",
+          "temperature_traitement_thermique_C",
+          "temps_trempe_min",
+          "teneur_carbone_pourcent"
+        ]
+      }
+    ],
+    "modeles": [
+      {
+        "id": "reference.dummy_regression",
+        "parametres": {},
+        "colonnes": []
+      },
+      {
+        "id": "regression.ridge",
+        "parametres": {},
+        "colonnes": []
+      },
+      {
+        "id": "regression.foret",
+        "parametres": {},
+        "colonnes": []
+      },
+      {
+        "id": "regression.gradient_histogramme",
+        "parametres": {},
+        "colonnes": []
+      }
+    ],
+    "validation": null,
+    "classe_positive": null
+  },
+  "decoupage": {
+    "methode": "aleatoire",
+    "base_test": {
+      "methode": "aleatoire",
+      "test_size": 0.2,
+      "random_state": 42,
+      "colonne_groupe": null,
+      "lignes_test": 30,
+      "empreinte_sha256": "512a21d72269c872af77299ce4087b99889935fb0a77b7cc97c02d637cd8059f"
+    }
+  },
+  "acquittements": [],
+  "decision": {
+    "modele": "regression.ridge",
+    "seuil": null,
+    "justification": "Meilleur score de validation croisée parmi les modèles comparés : rmse = 25,2720 en moyenne sur 5 plis, contre 177,6122 pour la référence naïve."
+  },
+  "attendus": {
+    "empreinte_donnees": "270b09a29c7fbf938c59128def00ae97bbae947ee8978104efd308e6e4ae9698",
+    "validation": {
+      "reference.dummy_regression": {
+        "r2": [
+          -0.009724304104143044,
+          -0.015328644534195135,
+          -0.06956342708538954,
+          -0.21850325844382779,
+          -0.02013565411277818
+        ],
+        "mae": [
+          150.91927083333334,
+          162.52256944444443,
+          169.82083333333335,
+          116.15399305555552,
+          184.75729166666667
+        ],
+        "rmse": [
+          175.33086189491144,
+          183.18705504324444,
+          187.5123718140575,
+          139.52906726549543,
+          202.5015551637814
+        ],
+        "mape": [
+          0.21251780612679252,
+          0.2260861483904869,
+          0.24371888210147175,
+          0.13532327784885315,
+          0.23776338378096976
+        ]
+      },
+      "regression.ridge": {
+        "r2": [
+          0.9840459913113807,
+          0.9861748414608922,
+          0.9812688930898894,
+          0.9417750536591143,
+          0.9810085218792308
+        ],
+        "mae": [
+          16.813352747726565,
+          16.720411253171715,
+          20.296510632290417,
+          22.92684827950741,
+          21.599599415326903
+        ],
+        "rmse": [
+          22.038999492795735,
+          21.37600398034762,
+          24.814662707287212,
+          30.50042507928269,
+          27.62986629507901
+        ],
+        "mape": [
+          0.02216229481627152,
+          0.022449919353373964,
+          0.028352556939979984,
+          0.02776186862521875,
+          0.025587553388716672
+        ]
+      },
+      "regression.foret": {
+        "r2": [
+          0.9673224650932575,
+          0.9787179882017644,
+          0.9830669343761093,
+          0.9432536831952969,
+          0.9635468439886354
+        ],
+        "mae": [
+          23.874285416666613,
+          20.16299999999983,
+          19.33014583333323,
+          22.329187499999886,
+          27.630791666666582
+        ],
+        "rmse": [
+          31.5414465066881,
+          26.52148278754412,
+          23.593612963619627,
+          30.110653605527816,
+          38.279562600361736
+        ],
+        "mape": [
+          0.03065255630147946,
+          0.0263099209868168,
+          0.02761522321376982,
+          0.02712427646605374,
+          0.03127230996406282
+        ]
+      },
+      "regression.gradient_histogramme": {
+        "r2": [
+          0.9553658764136423,
+          0.9670464703670613,
+          0.9619919839477304,
+          0.8876314870397827,
+          0.9360761478589997
+        ],
+        "mae": [
+          27.4421750573498,
+          25.622917231745376,
+          27.517847305110877,
+          35.39854692241309,
+          39.14539556384113
+        ],
+        "rmse": [
+          36.86298237334182,
+          33.00216495959744,
+          35.347951913843225,
+          42.37148259519823,
+          50.6910011556596
+        ],
+        "mape": [
+          0.03582510161787956,
+          0.03230569843466168,
+          0.03802208235578051,
+          0.04135753227540642,
+          0.044821767305682075
+        ]
+      }
+    },
+    "empreinte_test": "512a21d72269c872af77299ce4087b99889935fb0a77b7cc97c02d637cd8059f",
+    "empreinte_plis": "7dfcc54c37ada5dcc64c8266c182b14703c9a03add20e757e44d108781b58327",
+    "test": {
+      "scores": {
+        "r2": 0.9862083694712428,
+        "mae": 17.681999824983972,
+        "rmse": 22.14956904653846,
+        "mape": 0.022221965522321054
+      },
+      "n_lignes": 30,
+      "n_sans_cible": 0,
+      "empreinte_predictions": "89281d8bc55a347a7e68dcc9d20759abbbe312627dff640352b238d31779129c"
+    }
+  },
+  "environnement": {
+    "python": "3.12.0",
+    "numpy": "2.4.6",
+    "pandas": "3.0.5",
+    "scipy": "1.18.0",
+    "scikit-learn": "1.9.0"
+  }
+}

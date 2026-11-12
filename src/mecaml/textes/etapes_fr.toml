@@ -1,0 +1,369 @@
+# Ce que fait chaque technique ou métrique, ce qu'il faut regarder.
+
+["manquants.simple"]
+quoi = "Remplace chaque case vide par la médiane, la moyenne ou la valeur la plus fréquente."
+regarder = "La valeur est apprise sur l'apprentissage du pli ; beaucoup de vides demandent une explication."
+
+["manquants.knn"]
+quoi = "Remplace une case vide par la moyenne des lignes les plus ressemblantes."
+regarder = "Mettre les variables à l'échelle avant ; le calcul grossit vite avec les lignes."
+
+["manquants.indicateur"]
+quoi = "Ajoute une colonne 0 ou 1 qui signale une valeur absente."
+regarder = "À associer à une imputation ; un indicateur très lié à la cible peut cacher une fuite."
+
+["encodage.one_hot"]
+quoi = "Crée une colonne 0 ou 1 par modalité d'une variable catégorielle."
+regarder = "Les colonnes se multiplient avec les modalités ; une modalité inconnue au test donne des zéros."
+
+["encodage.ordinal"]
+quoi = "Remplace chaque modalité par un entier, -1 pour une modalité inconnue."
+regarder = "À réserver aux modalités ordonnées ; sinon un modèle linéaire lit un ordre qui n'existe pas."
+
+["transformation.standard"]
+quoi = "Ramène chaque variable à une moyenne nulle et un écart type de un."
+regarder = "Moyenne et écart type viennent de l'apprentissage du pli ; une valeur aberrante déforme l'échelle."
+
+["transformation.minmax"]
+quoi = "Ramène chaque variable entre 0 et 1 d'après les extrêmes de l'apprentissage."
+regarder = "Un extrême isolé écrase le reste ; une valeur du test hors des bornes sort de 0 à 1."
+
+["transformation.robuste"]
+quoi = "Centre sur la médiane et divise par l'écart interquartile."
+regarder = "Une variable presque constante a un écart nul : la retirer ou la regrouper."
+
+["transformation.puissance"]
+quoi = "Rend plus symétrique une distribution asymétrique (Yeo et Johnson)."
+regarder = "Comparer les histogrammes avant et après ; elle ne corrige pas une aberration isolée."
+
+["transformation.polynomiale"]
+quoi = "Ajoute les puissances et les produits des variables, jusqu'à un degré borné."
+regarder = "Le nombre de colonnes explose avec le degré ; hors du domaine appris, l'extrapolation est mauvaise."
+
+["transformation.discretisation"]
+quoi = "Découpe une variable continue en classes d'amplitude ou d'effectif réguliers."
+regarder = "La perte d'information est irréversible ; choisir le nombre de classes sur la validation."
+
+["transformation.ecretage_tukey"]
+quoi = "Ramène aux bornes de Tukey les valeurs hors de [Q1 - k IQR, Q3 + k IQR]."
+regarder = "Une valeur aberrante peut être un vrai défaut ; les bornes viennent de l'apprentissage."
+
+["chronologique.variables_temporelles"]
+quoi = "Calcule par unité suivie des retards, moyennes glissantes et différences."
+regarder = "Les premières lignes d'une unité manquent de passé ; ne jamais y glisser la cible elle-même."
+
+["chronologique.cible_decalee"]
+quoi = "Ajoute des retards de la cible comme variables, unité par unité."
+regarder = "Exige que la cible précédente soit connue à la prévision ; un compte à rebours est refusé."
+
+["selection.variance"]
+quoi = "Écarte les variables dont la variance est sous un seuil."
+regarder = "La variance dépend de l'unité ; l'appliquer après la mise à l'échelle."
+
+["selection.k_meilleures"]
+quoi = "Garde les k variables les plus liées à la cible (test univarié ou information mutuelle)."
+regarder = "Le classement vient de l'apprentissage du pli ; il ignore les interactions."
+
+["selection.depuis_modele"]
+quoi = "Garde les variables que l'importance d'une forêt juge utiles."
+regarder = "L'importance par impureté favorise les variables à nombreuses valeurs ; confirmer par permutation."
+
+["selection.rfecv"]
+quoi = "Retire les variables les moins utiles une à une et garde le meilleur nombre validé."
+regarder = "Coûteuse : un ajustement par étape et par pli ; réserver aux jeux modestes."
+
+["regression.lineaire"]
+quoi = "Ajuste une combinaison linéaire des variables par les moindres carrés."
+regarder = "Lire les coefficients après standardisation ; des variables corrélées les rendent instables."
+
+["regression.ridge"]
+quoi = "Régression linéaire dont une pénalité L2 freine les coefficients."
+regarder = "Régler la pénalité par validation croisée ; mettre les variables à l'échelle."
+
+["regression.lasso"]
+quoi = "Régression linéaire à pénalité L1 : les coefficients inutiles tombent à zéro."
+regarder = "Parmi des variables corrélées, il en garde une au hasard ; le choix peut changer."
+
+["regression.elastic_net"]
+quoi = "Régression linéaire qui combine les pénalités L1 et L2."
+regarder = "Deux réglages, la force et la part de L1 : les confronter sur les mêmes plis."
+
+["regression.quantile"]
+quoi = "Modélise un quantile de la cible, la médiane par défaut, plutôt que sa moyenne."
+regarder = "Plus lente qu'une régression ordinaire ; l'évaluer avec l'erreur absolue plutôt que le R²."
+
+["regression.plus_proches_voisins"]
+quoi = "Prédit la moyenne de la cible des k lignes d'apprentissage les plus proches."
+regarder = "Mettre les variables à l'échelle ; hors du domaine appris, il répète les bords."
+
+["regression.arbre"]
+quoi = "Coupe l'espace par des seuils successifs et prédit la moyenne de chaque région."
+regarder = "Un arbre profond apprend le bruit : limiter la profondeur, comparer apprentissage et validation."
+
+["regression.foret"]
+quoi = "Moyenne de nombreux arbres, chacun ajusté sur un tirage de lignes et de variables."
+regarder = "N'extrapole pas au delà des valeurs vues ; confirmer l'importance par permutation."
+
+["regression.arbres_extremes"]
+quoi = "Moyenne d'arbres dont les seuils de coupure sont tirés au hasard."
+regarder = "Plus rapides qu'une forêt mais parfois moins précis quand le bruit domine."
+
+["regression.bagging"]
+quoi = "Moyenne de modèles identiques ajustés sur des tirages avec remise."
+regarder = "Réduit la variance, pas le biais : inutile si le modèle de base sous-apprend."
+
+["regression.gradient_histogramme"]
+quoi = "Arbres courts ajoutés un à un sur le résidu, variables discrétisées, rapide sur grands jeux."
+regarder = "Surapprend si les arbres sont trop nombreux : suivre l'écart apprentissage et validation."
+
+["regression.gradient_boosting"]
+quoi = "Arbres courts ajoutés un à un, chacun ajusté sur l'erreur résiduelle."
+regarder = "Pas d'apprentissage et nombre d'arbres se règlent ensemble ; plus lent que la version histogramme."
+
+["regression.svr"]
+quoi = "Ajuste une fonction qui tolère une bande d'erreur, avec un noyau pour les courbures."
+regarder = "Coût croissant avec les lignes (borne de 20 000) ; mettre les variables à l'échelle."
+
+["regression.reseau_neurones"]
+quoi = "Couches de neurones aux poids appris par rétropropagation."
+regarder = "Standardiser les entrées ; un avertissement de convergence demande plus d'itérations."
+
+["regression.adaboost"]
+quoi = "Arbres courts en série, plus de poids aux lignes mal prédites."
+regarder = "Sensible aux valeurs aberrantes, dont le poids augmente."
+
+["regression.vote"]
+quoi = "Moyenne les prédictions de plusieurs modèles du catalogue."
+regarder = "Utile si les membres sont bons et différents ; évaluer sur les mêmes plis."
+
+["regression.empilement"]
+quoi = "Un modèle final apprend à combiner les prédictions de modèles de base."
+regarder = "Calcul plus long ; la combinaison est apprise hors pli pour éviter la fuite."
+
+["classification.logistique"]
+quoi = "Estime la probabilité d'une classe par une combinaison linéaire des variables."
+regarder = "Frontière linéaire seulement ; avec des classes rares, pondérer et choisir le seuil par le coût."
+
+["classification.plus_proches_voisins"]
+quoi = "Attribue la classe la plus fréquente parmi les k lignes les plus proches."
+regarder = "Mettre les variables à l'échelle ; sur classes déséquilibrées, la majorité domine."
+
+["classification.arbre"]
+quoi = "Coupe l'espace par des seuils et attribue à chaque région sa classe majoritaire."
+regarder = "Limiter la profondeur pour ne pas apprendre le bruit ; lire les règles avec l'explication par arbre."
+
+["classification.foret"]
+quoi = "Fait voter de nombreux arbres ajustés sur des tirages de lignes et de variables."
+regarder = "Sur classes rares, lire rappel et précision plutôt que l'exactitude."
+
+["classification.arbres_extremes"]
+quoi = "Fait voter des arbres dont les seuils de coupure sont tirés au hasard."
+regarder = "À comparer à la forêt sur les mêmes plis."
+
+["classification.bagging"]
+quoi = "Fait voter des modèles identiques ajustés sur des tirages avec remise."
+regarder = "Réduit la variance, pas le biais ; inutile sur un modèle déjà stable."
+
+["classification.gradient_histogramme"]
+quoi = "Arbres courts ajoutés un à un contre les erreurs de classement, variables discrétisées."
+regarder = "Suivre l'écart apprentissage et validation ; sur classes rares, pondérer les classes."
+
+["classification.gradient_boosting"]
+quoi = "Arbres courts ajoutés un à un, chacun corrigeant les erreurs des précédents."
+regarder = "Pas d'apprentissage et nombre d'arbres se règlent ensemble ; trop d'arbres font surapprendre."
+
+["classification.svc"]
+quoi = "Cherche la frontière de plus grande marge, avec un noyau pour les frontières courbes."
+regarder = "Coût croissant avec les lignes (borne de 20 000) ; mettre les variables à l'échelle."
+
+["classification.reseau_neurones"]
+quoi = "Couches de neurones aux poids appris par rétropropagation, une probabilité par classe."
+regarder = "Standardiser les entrées ; un avertissement de convergence demande plus d'itérations."
+
+["classification.bayes_naif"]
+quoi = "Loi normale par variable et par classe, variables supposées indépendantes."
+regarder = "L'indépendance est rarement vraie ; les probabilités sont souvent trop tranchées."
+
+["classification.analyse_discriminante"]
+quoi = "Frontières linéaires entre classes normales de même covariance."
+regarder = "Souffre de variables très corrélées ; la comparer à la logistique."
+
+["classification.adaboost"]
+quoi = "Arbres courts en série, plus de poids aux lignes mal classées."
+regarder = "Sensible aux étiquettes erronées et aux valeurs aberrantes."
+
+["classification.vote"]
+quoi = "Combine plusieurs modèles du catalogue par vote ou moyenne de probabilités."
+regarder = "Utile si les membres sont bons et différents ; évaluer sur les mêmes plis."
+
+["classification.empilement"]
+quoi = "Un modèle final apprend à combiner les probabilités de modèles de base."
+regarder = "Calcul plus long ; la combinaison est apprise hors pli pour éviter la fuite."
+
+["reference.dummy_regression"]
+quoi = "Prédit toujours la moyenne de l'apprentissage, sans lire de variable."
+regarder = "C'est le score à battre : un gain proche de zéro est un échec."
+
+["reference.dummy_classification"]
+quoi = "Prédit toujours la classe majoritaire de l'apprentissage."
+regarder = "Son rappel sur la classe rare est nul ; comparer avec l'exactitude équilibrée ou le F1."
+
+["reference.persistance"]
+quoi = "Prédit la dernière valeur connue de la cible de la même unité."
+regarder = "Exige que la cible précédente soit connue à la prévision ; un compte à rebours est refusé."
+
+["validation.kfold"]
+quoi = "Découpe l'apprentissage en k plis tirés au hasard, validés tour à tour."
+regarder = "Réservé aux lignes indépendantes : sur des unités ou une série, la fuite passe."
+
+["validation.kfold_stratifie"]
+quoi = "Plis au hasard qui gardent la proportion de chaque classe."
+regarder = "Le nombre de plis ne dépasse pas l'effectif de la classe la plus rare."
+
+["validation.plis_groupes"]
+quoi = "Plis d'unités entières : une machine ou un lot ne chevauche jamais deux plis."
+regarder = "Avec peu d'unités les plis sont déséquilibrés ; vérifier les plis valides."
+
+["validation.plis_groupes_stratifies"]
+quoi = "Plis d'unités entières qui cherchent à garder la proportion des classes."
+regarder = "Avec peu d'unités l'équilibre n'est qu'approché ; vérifier les plis valides."
+
+["validation.groupes_aleatoires"]
+quoi = "Tire plusieurs fois un lot d'unités pour la validation, le reste apprend."
+regarder = "Une unité peut revenir d'un tirage à l'autre : scores non indépendants."
+
+["validation.serie_temporelle"]
+quoi = "Valide chaque pli sur la période qui suit un apprentissage de plus en plus long."
+regarder = "Le premier pli apprend sur peu de données ; une dérive se voit aux derniers plis."
+
+["validation.exclusion_unique"]
+quoi = "Valide chaque ligne sur un modèle ajusté avec toutes les autres."
+regarder = "Autant d'ajustements que de lignes (borne de 20 000) ; chaque score porte sur une ligne."
+
+["validation.recherche_grille"]
+quoi = "Essaie toutes les combinaisons d'une grille bornée, validées sur les mêmes plis."
+regarder = "Le meilleur score est optimiste, le réglage étant choisi sur ces plis ; seul le test tranche."
+
+["validation.recherche_aleatoire"]
+quoi = "Tire un nombre borné de combinaisons de réglages, validées sur les mêmes plis."
+regarder = "Le meilleur score est optimiste, le réglage étant choisi sur ces plis ; seul le test tranche."
+
+["validation.courbe_apprentissage"]
+quoi = "Trace les scores d'apprentissage et de validation selon le nombre de lignes."
+regarder = "Courbes rapprochées et basses : modèle trop simple ; grand écart durable : manque de lignes."
+
+["validation.courbe_validation"]
+quoi = "Trace les scores d'apprentissage et de validation selon un hyperparamètre."
+regarder = "Le bon réglage est le sommet de la courbe de validation."
+
+["sans_cible.acp"]
+quoi = "Projette les lignes sur les directions de plus grande variance."
+regarder = "Standardiser d'abord ; la variance cumulée donne le nombre d'axes."
+
+["sans_cible.kmeans"]
+quoi = "Répartit les lignes en k groupes compacts autour de centres recalculés."
+regarder = "Choisir k avec la silhouette ; groupes supposés ronds et de taille voisine."
+
+["sans_cible.melange_gaussien"]
+quoi = "Mélange de lois normales : appartenance souple à chaque groupe."
+regarder = "Choisir avec soin le nombre de lois ; sensible à l'échelle des variables."
+
+["sans_cible.classification_hierarchique"]
+quoi = "Fusionne pas à pas les groupes les plus proches en un arbre de regroupements."
+regarder = "Coût croissant avec les lignes (borne de 20 000) ; le critère de fusion change les groupes."
+
+["sans_cible.dbscan"]
+quoi = "Regroupe les points denses et classe en bruit les points isolés."
+regarder = "Rayon et voisins minimaux se règlent sur des variables mises à l'échelle."
+
+["sans_cible.foret_isolement"]
+quoi = "Isole chaque ligne par coupures aléatoires : isolée vite, elle est anormale."
+regarder = "La part d'anomalies est un réglage ; un point signalé est à examiner, pas à écarter."
+
+["sans_cible.facteur_local"]
+quoi = "Compare la densité autour d'une ligne à celle de ses voisins."
+regarder = "Mettre les variables à l'échelle avant ; choisir le nombre de voisins."
+
+["sans_cible.svm_une_classe"]
+quoi = "Trace une frontière autour des données normales ; l'extérieur est anormal."
+regarder = "Coût croissant avec les lignes (borne de 20 000) ; dépend du noyau et de l'échelle."
+
+["explication.permutation"]
+quoi = "Mélange une colonne à la fois et mesure la baisse du score."
+regarder = "Deux variables corrélées se partagent l'importance ; à calculer hors apprentissage."
+
+["explication.impurete"]
+quoi = "Part de la réduction d'impureté apportée par chaque variable des arbres."
+regarder = "Calculée sur l'apprentissage, elle favorise les variables à nombreuses valeurs."
+
+["explication.arbre_texte"]
+quoi = "Écrit un arbre de décision en règles, de la racine aux feuilles."
+regarder = "Une règle absurde pour le métier signale souvent une fuite."
+
+["metrique.r2"]
+quoi = "Part de la variance de la cible expliquée : 1 pour un modèle parfait, 0 pour la moyenne."
+regarder = "Négatif, il est pire que la moyenne ; un R² élevé n'excuse pas une grande erreur en unités."
+
+["metrique.mae"]
+quoi = "Moyenne des écarts absolus, dans l'unité de la cible."
+regarder = "La comparer à la tolérance du procédé et à l'erreur de la référence."
+
+["metrique.rmse"]
+quoi = "Racine de la moyenne des carrés des écarts, dans l'unité de la cible."
+regarder = "Toujours au dessus de la MAE ; un grand écart révèle quelques erreurs très fortes."
+
+["metrique.mape"]
+quoi = "Erreur absolue moyenne en pourcentage de la valeur vraie."
+regarder = "Explose près de zéro : l'éviter sur des grandeurs qui s'annulent."
+
+["metrique.exactitude"]
+quoi = "Part des lignes dont la classe est bien prédite."
+regarder = "Trompeuse sur une classe rare : la référence naïve est déjà élevée."
+
+["metrique.exactitude_equilibree"]
+quoi = "Moyenne des rappels de chaque classe."
+regarder = "La référence vaut 1 divisé par le nombre de classes : le niveau du hasard."
+
+["metrique.precision"]
+quoi = "Part de vrais positifs parmi les lignes annoncées positives."
+regarder = "À lire avec le rappel ; indéfinie dans un pli sans classe positive, signalé."
+
+["metrique.rappel"]
+quoi = "Part des vrais positifs que le modèle retrouve."
+regarder = "Se gagne en baissant le seuil, au prix de la précision."
+
+["metrique.f1"]
+quoi = "Moyenne harmonique de la précision et du rappel."
+regarder = "Suppose des coûts égaux pour fausse alerte et défaut manqué ; sinon, la métrique de coût."
+
+["metrique.roc_auc"]
+quoi = "Probabilité qu'un cas positif reçoive un score plus haut qu'un cas négatif."
+regarder = "0,5 est le hasard ; sur classe très rare, elle flatte alors que la précision reste faible."
+
+["metrique.precision_moyenne"]
+quoi = "Résume la courbe précision rappel quand le seuil varie."
+regarder = "Son hasard est la part de cas positifs, pas 0,5 ; la comparer à la référence."
+
+["metrique.matrice_confusion"]
+quoi = "Compte les lignes de chaque classe vraie par classe prédite."
+regarder = "Se lit au diagnostic ; ce n'est pas une métrique de choix."
+
+["metrique.cout"]
+quoi = "Somme du coût des fausses alertes et des défauts manqués."
+regarder = "Plus petit est meilleur ; les deux coûts viennent de vous, le seuil proposé aussi."
+
+["metrique.silhouette"]
+quoi = "Compare la distance d'une ligne à son groupe et au groupe voisin, de -1 à 1."
+regarder = "Près de 1 : groupes séparés ; près de 0 ou négatif : ils se recouvrent."
+
+["metrique.rand_ajuste"]
+quoi = "Accord entre groupes trouvés et colonne de contrôle, corrigé du hasard."
+regarder = "0 est le hasard, 1 l'accord parfait ; la colonne de contrôle ne sert pas à apprendre."
+
+["metrique.variance_expliquee"]
+quoi = "Part de la variance totale conservée par les composantes retenues."
+regarder = "90 à 95 % est courant ; une composante faible peut encore porter un défaut."
+
+["metrique.taux_anomalies"]
+quoi = "Proportion de lignes que le détecteur juge anormales."
+regarder = "Ce n'est pas un score de qualité : elle dépend du seuil."

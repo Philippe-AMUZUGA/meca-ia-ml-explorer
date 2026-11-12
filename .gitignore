@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+
+# Environnements et caches
+.venv/
+venv/
+.runtime/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+vendor/wheels/
+*.log
+
+# Empaquetage : seuls la spécification, les scripts et la procédure sont versionnés
+build/*
+!build/*.spec
+!build/*.py
+!build/*.md
+dist/
+
+# Données et sorties locales
+*.joblib
+rapports/
+
+# Système et éditeurs
+Thumbs.db
+desktop.ini
+.DS_Store
+.idea/
+.vscode/

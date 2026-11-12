@@ -1,0 +1,43 @@
+{
+  "jeux": [
+    {
+      "fichier": "MecaIA-Traitement_Acier.xlsx",
+      "sha256": "4d38f19eda82408f1d9d8b540e02d7d4d8ed77c9dfd00b77282633064c1f13e7",
+      "octets": 9451,
+      "source": "donnees/MecaIA-Traitement_Acier.xlsx",
+      "sha256_source": "4d38f19eda82408f1d9d8b540e02d7d4d8ed77c9dfd00b77282633064c1f13e7",
+      "extrait": null
+    },
+    {
+      "fichier": "MecaIA-Controle_Conformite.xlsx",
+      "sha256": "e267d7b232876fb92fbbad08d851812c4b5572ad4fd4ffbf1bdbad33922d076e",
+      "octets": 109875,
+      "source": "donnees/MecaIA-Controle_Conformite.xlsx",
+      "sha256_source": "e267d7b232876fb92fbbad08d851812c4b5572ad4fd4ffbf1bdbad33922d076e",
+      "extrait": null
+    },
+    {
+      "fichier": "MecaIA-Anomalies_Pompe.xlsx",
+      "sha256": "bb4c0006b2e14c6e847efe45d1571627425ee405d381c66dfb61e28b5be22658",
+      "octets": 12253,
+      "source": "donnees/MecaIA-Anomalies_Pompe.xlsx",
+      "sha256_source": "bb4c0006b2e14c6e847efe45d1571627425ee405d381c66dfb61e28b5be22658",
+      "extrait": null
+    },
+    {
+      "fichier": "MecaIA-TimeSeries_RUL_extrait.xlsx",
+      "sha256": "29ba3c4d40b9f91ff901c3ae910611b1a1dd04b3c060c250b6aecdac1bc274b5",
+      "octets": 420550,
+      "source": "donnees/MecaIA-TimeSeries_RUL.xlsx",
+      "sha256_source": "e48b0ff85d225ba79c2be2627e2be55c70a96b70bb27da203e0712011ad24ebe",
+      "extrait": "machines 1 à 20"
+    }
+  ],
+  "projet_exemple": {
+    "jeu": "MecaIA-Traitement_Acier.xlsx",
+    "fichiers": [
+      "projet.json",
+      "rapport.xlsx"
+    ]
+  }
+}

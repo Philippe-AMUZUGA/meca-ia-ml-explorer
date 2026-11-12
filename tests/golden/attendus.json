@@ -1,0 +1,107 @@
+{
+  "acier": {
+    "reference.dummy_regression": {
+      "mae": 158.55204861111108,
+      "r2": -0.16459405373125793,
+      "rmse": 180.1922659686081
+    },
+    "regression.arbre": {
+      "mae": 32.775229901478966,
+      "r2": 0.9283710537962714,
+      "rmse": 44.54284939578223
+    },
+    "regression.foret": {
+      "mae": 22.057923333333335,
+      "r2": 0.9701250473898743,
+      "rmse": 28.339544948691923
+    },
+    "regression.plus_proches_voisins": {
+      "mae": 26.824833333333345,
+      "r2": 0.9544997910335825,
+      "rmse": 34.00198574802648
+    },
+    "regression.ridge": {
+      "mae": 18.55404960657165,
+      "r2": 0.9791991926892377,
+      "rmse": 23.37608591373327
+    }
+  },
+  "conformite": {
+    "classification.arbre": {
+      "exactitude": 0.9120879120879121,
+      "f1": 0.8842025104038977,
+      "precision": 0.8856956663408276,
+      "rappel": 0.884705882352941,
+      "roc_auc": 0.9044304037404436
+    },
+    "classification.foret": {
+      "exactitude": 0.9494505494505494,
+      "f1": 0.9316699394051762,
+      "precision": 0.9463428059395801,
+      "rappel": 0.9194957983193277,
+      "roc_auc": 0.9927412017438554
+    },
+    "classification.logistique": {
+      "exactitude": 0.9802197802197803,
+      "f1": 0.9732971805879842,
+      "precision": 0.9883838383838384,
+      "rappel": 0.959327731092437,
+      "roc_auc": 0.9957015437754049
+    },
+    "reference.dummy_classification": {
+      "exactitude": 0.621978021978022,
+      "f1": 0.0,
+      "precision": null,
+      "rappel": 0.0,
+      "roc_auc": 0.5
+    }
+  },
+  "pompe": {
+    "sans_cible.acp": {
+      "variance_expliquee": 0.9109658720201617
+    },
+    "sans_cible.dbscan": {
+      "silhouette": 0.7538062435374676
+    },
+    "sans_cible.facteur_local": {
+      "taux_anomalies": 0.050724637681159424
+    },
+    "sans_cible.foret_isolement": {
+      "taux_anomalies": 0.050724637681159424
+    },
+    "sans_cible.kmeans": {
+      "silhouette": 0.7336639492528465
+    },
+    "sans_cible.melange_gaussien": {
+      "silhouette": 0.7323819434694081
+    }
+  },
+  "serie": {
+    "reference.dummy_regression": {
+      "r2": -0.04514268369757094,
+      "rmse": 71.57039521756315
+    },
+    "regression.arbre": {
+      "r2": 0.7057669052440844,
+      "rmse": 37.16180983905034
+    },
+    "regression.ridge": {
+      "r2": 0.7460495665850754,
+      "rmse": 34.2968777392883
+    }
+  },
+  "serie_retards": {
+    "reference.dummy_regression": {
+      "r2": -0.04514268369757094,
+      "rmse": 71.57039521756315
+    },
+    "regression.arbre": {
+      "r2": 0.7047235246884967,
+      "rmse": 37.41568965596294
+    },
+    "regression.ridge": {
+      "r2": 0.7567122828307933,
+      "rmse": 33.78908886989189
+    }
+  }
+}

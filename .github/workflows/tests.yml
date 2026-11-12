@@ -1,0 +1,32 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+      - name: Dépendances
+        run: python -m pip install -r requirements-dev.txt
+      - name: Style (ruff check)
+        run: python -m ruff check .
+      - name: Format (ruff format, vérification sans réécriture)
+        run: python -m pytest -q tests/unit/test_architecture.py -k format_ruff
+      - name: Charte (tirets et traits d'union doublés)
+        run: python tests/outils/verifier_tirets.py .
+      - name: Tests (hors mesures longues)
+        run: python -m pytest -q
