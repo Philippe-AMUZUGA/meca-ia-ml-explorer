@@ -29,4 +29,12 @@ jobs:
       - name: Charte (tirets et traits d'union doublés)
         run: python tests/outils/verifier_tirets.py .
       - name: Tests (hors mesures longues)
-        run: python -m pytest -q
+        shell: bash
+        run: |
+          python -m pytest -q -rfE > "$RUNNER_TEMP/pytest.log" 2>&1 && code=0 || code=$?
+          tail -n 40 "$RUNNER_TEMP/pytest.log"
+          if [ "$code" -ne 0 ]; then
+            msg=$(grep -E "^(FAILED|ERROR) |^E  " "$RUNNER_TEMP/pytest.log" | head -n 60 | sed 's/%/%25/g' | awk '{printf "%s%%0A", substr($0,1,300)}')
+            echo "::error::${msg:0:4000}"
+          fi
+          exit "$code"
